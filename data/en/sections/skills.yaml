@@ -1,0 +1,90 @@
+# section information
+section:
+  name: Skills
+  id: skills
+  enable: true
+  weight: 2
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+skills:
+  - name: Python
+    logo: images/skills/python.svg
+    summary: "Primary language for reinforcement learning, scientific computing, PyTorch, and robotics automation."
+    url: "https://www.python.org/"
+
+  - name: C++
+    logo: images/skills/cplusplus.svg
+    summary: "Used for high-performance robot execution, control algorithms, and system-level optimization."
+    url: "https://isocpp.org/"
+
+  - name: NVIDIA Isaac Sim
+    logo: images/skills/isaac-sim.svg
+    summary: "Photorealistic GPU-accelerated simulation and reinforcement learning environment (Isaac Lab) for robotics."
+    url: "https://developer.nvidia.com/isaac-sim"
+
+  - name: MuJoCo
+    logo: images/skills/mujoco.svg
+    summary: "Physics engine for fast and accurate multi-joint contact dynamics simulation and control policy verification."
+    url: "https://mujoco.org/"
+
+  - name: ROS2
+    logo: images/skills/ros.svg
+    summary: "Standard framework for robot software architecture, node communications, URDF modeling, and hardware interfaces."
+    url: "https://www.ros.org/"
+
+  - name: Gazebo
+    logo: images/skills/gazebo.svg
+    summary: "Open-source 3D robotics simulator for environment setup, sensor simulation, and algorithm testing."
+    url: "https://gazebosim.org/"
+
+  - name: MATLAB & Simulink
+    logo: images/skills/matlab.svg
+    summary: "System modeling, dynamic analysis, controller design, and multi-domain signal processing."
+    url: "https://www.mathworks.com/"
+
+  - name: ANSYS
+    logo: images/skills/ansys.svg
+    summary: "Multi-physics field coupling simulation, electromagnetic analysis, and structural mechanics."
+    url: "https://www.ansys.com/"
+
+  - name: SolidWorks
+    logo: images/skills/solidworks.png
+    summary: "3D CAD modeling, mechanical design, dynamic assembly, and export to URDF/XML robot formats."
+    url: "https://www.solidworks.com/"
+
+  - name: PyTorch
+    logo: images/skills/pytorch.svg
+    summary: "Primary deep learning framework for training neural networks, reinforcement learning policies, and tensor computations."
+    url: "https://pytorch.org/"
+
+  # - name: TensorFlow
+  #   logo: images/skills/tensorflow.svg
+  #   summary: "Deep learning framework for training neural networks and deploying AI inference pipelines."
+  #   url: "https://www.tensorflow.org/"
+
+  - name: Arduino
+    logo: images/skills/arduino.svg
+    summary: "Prototyping, sensor/actuator interfacing, microcontrollers, and low-level motor control."
+    url: "https://www.arduino.cc/"
+
+  - name: Linux / Bash
+    logo: images/skills/linux.svg
+    summary: "Primary OS environment for development, GPU acceleration setups, script automation, and navigation."
+    url: "https://www.kernel.org/"
+
+  - name: Git
+    logo: images/skills/git.svg
+    summary: "Version control, collaborative code management, open-source contribution, and CI/CD workflows."
+    url: "https://git-scm.com/"
+
+  - name: LaTeX
+    logo: images/skills/LaTeX_logo.svg
+    summary: "Typesetting academic papers, scientific reports, mathematical formulas, and presentation slides."
+    url: "https://www.latex-project.org/"
+
+  # - name: Microsoft Office (Word, PPT, Excel)
+  #   logo: images/skills/msoffice.svg
+  #   summary: "Proficient in Word for technical documentation, PowerPoint for academic presentations, and Excel for data analysis."
+  #   url: "https://www.microsoft.com/en-us/microsoft-365"

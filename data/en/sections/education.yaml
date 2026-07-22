@@ -1,0 +1,62 @@
+# section information
+section:
+  name: Education
+  id: education
+  template: sections/education.html # Use "sections/education-alt.html for alternate template.
+  enable: true
+  weight: 4
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+degrees:
+- name: High School Diploma
+  icon: fa-microscope
+  timeframe: 2022-2025
+  institution:
+    name: High School Affilicated to Nanjing Normal University
+    #url: "https://www.nsfz.cn/"
+    logo: /images/education/high-school.png # Path of the logo image
+    #darkLogo: /images/education/college-dark.png #(optional), Can optionally show a different logo for dark theme
+  # grade: #(optional)
+  #   scale: College Entrance Exam
+  #   achieved: 673
+  #   outOf: 750
+  # publications: #(optional)
+  # - title: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  #   url: "#"
+  # - title: Fusce eu augue ut odio porttitor pulvinar.
+  #   url: "#"
+  # - title: Nullam vitae orci tincidunt purus viverra pulvinar.
+  #   url: "#"
+  # extracurricularActivities: #(optional), supports markdown
+  # - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  # - Fusce eu augue ut odio porttitor pulvinar.
+  # customSections: #(optional)
+  #   - name: Thesis
+  #     content: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  #   - name: Supervisor
+  #     content: Fusce eu augue ut odio porttitor pulvinar.
+
+- name: Bachelor of Mechanical Engineering
+  icon: fa-graduation-cap
+  timeframe: 2025-2029
+  institution:
+    name: Shanghai Jiao Tong University
+    #url: "https://www.njnu.edu.cn/"
+    logo: /images/education/university.png # Path of the logo image
+    #darkLogo: /images/education/college-dark.png #(optional), Can optionally show a different logo for dark theme
+  grade: #(optional)
+    scale: GPA
+    achieved: 4.1
+    outOf: 4.3
+  takenCourses: #(optional)
+    # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
+    showGrades: false
+    collapseAfter: 3
+    courses:
+    - name: Mathematical Analysis (Honor) [A+]
+      achieved: A+
+    - name: Network Security
+    - name: Operating System
+    - name: Artificial Intelligent

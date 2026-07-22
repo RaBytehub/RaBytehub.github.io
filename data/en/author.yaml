@@ -1,0 +1,31 @@
+# some information about you
+name: "Xia Yu"
+nickname: "Xia Yu👋"
+image: "images/portfolio-image.jpg"
+
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "Hi, I am"
+
+# give your contact information. they will be used in the footer
+contactInfo:
+  email: "rain_20071980@sjtu.edu.cn"
+  github: "https://github.com/RaBytehub"
+  QQ: 
+    icon: fa fa-qq
+    text: 2879383578
+  WeChat:
+    icon: fa fa-weixin
+    text: "Rain_20071980"
+  # linkedin:
+  #   enable: false
+  # twitter:
+  #   enable: false
+  # facebook:
+  #   enable: false
+  # stack-overflow:
+  #   enable: false
+
+
+# a summary of what you do
+summary:
+- 'To Perceive, Learn and Act! '
