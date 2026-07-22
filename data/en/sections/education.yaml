@@ -53,17 +53,41 @@ degrees:
   takenCourses: #(optional)
     # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
     showGrades: true
-    collapseAfter: 3
+    collapseAfter: 5
     courses:
     - name: Mathematical Analysis (Honor) I
       achieved: 4.3
       outOf: 4.3
-    - name: Network Security
+    - name: Mathematical Analysis (Honor) II
       achieved: 4.3
       outOf: 4.3
-    - name: Operating System
+    - name: University Physics (Honor) I
       achieved: 4.3
       outOf: 4.3
-    - name: Artificial Intelligent
+    - name: Probability and Statistics (Honor)
       achieved: 4.3
+      outOf: 4.3
+    - name: Thinking and Approach of Programming (C++)
+      achieved: 4.3
+      outOf: 4.3
+    - name: Linear Algebra
+      achieved: 4.3
+      outOf: 4.3
+    - name: Chemistry
+      achieved: 4.3
+      outOf: 4.3
+    - name: Physics Experiments (Honor) I
+      achieved: 4.3
+      outOf: 4.3
+    - name: Engineering Practice
+      achieved: 4.3
+      outOf: 4.3
+    - name: Circumstance and Policy
+      achieved: 4.3
+      outOf: 4.3
+    - name: Artificial Intelligent Principles
+      achieved: 4
+      outOf: 4.3
+    - name: An Introduction to Biology and Medicine (Honor)
+      achieved: 4
       outOf: 4.3
