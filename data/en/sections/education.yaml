@@ -4,7 +4,7 @@ section:
   id: education
   template: sections/education.html # Use "sections/education-alt.html for alternate template.
   enable: true
-  weight: 4
+  weight: 3
   showOnNavbar: true
   # Can optionally hide the title in sections
   # hideTitle: true
@@ -49,14 +49,21 @@ degrees:
   grade: #(optional)
     scale: GPA
     achieved: 4.1
-    outOf: 4.3
+    outOf: 4.3, all major-related courses achieve A+, ranked 1/323
   takenCourses: #(optional)
     # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
-    showGrades: false
+    showGrades: true
     collapseAfter: 3
     courses:
-    - name: Mathematical Analysis (Honor) [A+]
-      achieved: A+
+    - name: Mathematical Analysis (Honor) I
+      achieved: 4.3
+      outOf: 4.3
     - name: Network Security
+      achieved: 4.3
+      outOf: 4.3
     - name: Operating System
+      achieved: 4.3
+      outOf: 4.3
     - name: Artificial Intelligent
+      achieved: 4.3
+      outOf: 4.3
