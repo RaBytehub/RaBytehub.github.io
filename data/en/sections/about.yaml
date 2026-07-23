@@ -70,11 +70,11 @@ socialLinks:
 # show your photo
 photos:
   - src: /images/author/photo1.jpg
-    caption: "Campus Identification Photo"  # 图片1的说明
+    caption: "Campus Identification Photo"
   - src: /images/author/photo2.jpg
-    caption: "Youth League & Social Practice Activities"  # 图片2的说明
-  - src: /images/author/photo3.jpg
-    caption: "Campus & Personal Life"  # 图片3的说明
+    caption: "Youth League & Social Practice Activities"
+  - src: /images/author/photo3.png
+    caption: "Campus & Personal Life"
 
 
 # Show your badges
