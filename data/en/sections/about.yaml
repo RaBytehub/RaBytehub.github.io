@@ -31,13 +31,25 @@ socialLinks:
   icon: "fab fa-github"
   url: "https://www.github.com/RaBytehub"
 
-- name: WeChat
-  icon: "fab fa-weixin"
-  url: "#"
+- name: Google Scholar
+  icon: "fab fa-google-scholar"
+  url: "https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID" # 记得替换为你自己的 Google Scholar 链接
 
-- name: CV
-  icon: "fas fa-file-pdf"
+- name: Bilibili
+  icon: "fab fa-bilibili"
+  url: "https://space.bilibili.com/1761195341"
+
+- name: X
+  icon: "fa-brands fa-x-twitter"
+  url: "https://space.bilibili.com/1761195341"
+
+- name: pdf CV
+  icon: "fa-regular fa-file-pdf"
   url: "files/resume.pdf"
+
+- name: Who am I
+  icon: "fa-regular fa-face-smile"
+  url: "https://space.bilibili.com/1761195341"
 
 # - name: Stackoverflow
 #   icon: "fab fa-stack-overflow"
@@ -54,6 +66,16 @@ socialLinks:
 # - name: Facebook
 #   icon: "fab fa-facebook"
 #   url: "#"
+
+# show your photo
+photos:
+  - src: /images/author/photo1.jpg
+    caption: "Campus Identification Photo"  # 图片1的说明
+  - src: /images/author/photo2.jpg
+    caption: "Youth League & Social Practice Activities"  # 图片2的说明
+  - src: /images/author/photo3.jpg
+    caption: "Campus & Personal Life"  # 图片3的说明
+
 
 # Show your badges
 # You can show your verifiable certificates from https://www.credly.com.
@@ -86,7 +108,7 @@ badges:
   color: green
 
 - type: soft-skill-indicator
-  name: Complex Problem Solving
+  name: Complex Problem Solving Skills
   percentage: 90
   color: blue
 

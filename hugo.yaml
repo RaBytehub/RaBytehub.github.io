@@ -72,6 +72,9 @@ params:
     toc:
       enable: true
 
+    darkMode:
+      enable: true
+
   # Configure footer
   footer:
     enable: true

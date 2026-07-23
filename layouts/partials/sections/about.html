@@ -1,0 +1,138 @@
+{{ $sectionID := replace (lower .section.name) " " "-"  }}
+{{ if .section.id }}
+  {{ $sectionID = .section.id }}
+{{ end }}
+
+{{ $author:= hugo.Data.author }}
+{{ if (index hugo.Data site.Language.Lang).author }}
+  {{ $author = (index hugo.Data site.Language.Lang).author }}
+{{ end }}
+
+<div class="container anchor p-lg-5 about-section" id="{{ $sectionID }}">
+  <div class="row pt-sm-2 pt-md-4 align-self-center">
+    <!-- summary -->
+    <!-- takes up full section width if no badges/soft skills are specified -->
+    {{ if or (.softSkills) (.badges) }} <div class="col-sm-6"> {{ else }} <div class="col-sm-12"> {{ end }}
+      <h3 class="p-1">{{ $author.name }}</h3>
+      {{ if .designation }}
+      <h5 class="p-1">
+        {{ .designation }}
+        {{ if .company }}
+        {{ i18n "at"}} <a href="{{ .company.url }}" title="{{ .company.name }}" target="_blank" rel="noopener">{{ .company.name }}</a>
+        {{ end }}
+      </h5>
+      {{ end }}
+      <p class="p-1 text-justify">
+        {{ .summary | markdownify }}
+      </p>
+      <div class="text-container ms-auto">
+        <ul class="social-link d-flex">
+          {{ range .socialLinks }}
+          <li>
+            {{ if eq .name "Email" }}
+              <a href="mailto:{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+            {{ else if eq .name (i18n "phone") }}
+              <a href="tel:{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+            {{ else }}
+              <a href="{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+            {{ end }}
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ if .resume }}
+      <a href="{{ .resume | relURL }}" title="{{ i18n "resume"}}" target="#"
+        ><button class="btn btn-dark">{{ i18n "resume"}}</button></a
+      >
+      {{ end }}
+      {{ range .resourceLinks }}
+      <a href="{{ .url | relURL }}" title="{{ .title }}" target="#"
+        ><button class="btn btn-dark">{{ .title }}</button></a
+      >
+      {{ end }}
+    </div>
+    <!-- 右侧展示区：内部两列布局（技能列 + 照片列） -->
+    <div class="col-sm-6 pt-4 ps-md-4 ps-sm-3 pt-sm-0">
+      <div class="row align-items-center">
+        
+<!-- ======================= -->
+        <!-- 左子列：技能与徽章展区    -->
+        <!-- ======================= -->
+        <div class="col-12 col-xl-6 mb-4 mb-xl-0 d-flex justify-content-center">
+          <!-- 这里将 row 改为了 d-flex flex-column 并加上了 gap-3 增加纵向间距 -->
+          <div class="d-flex flex-column align-items-center gap-1 w-100">
+            {{ range .badges }}
+              {{ partial "misc/badge.html" . }}
+            {{ end }}
+
+            {{ range .softSkills }}
+              {{ partial "misc/soft-skills.html" . }}
+            {{ end }}
+          </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- 右子列：3:4 轮播图区域    -->
+        <!-- ======================= -->
+        <div class="col-12 col-xl-6 d-flex justify-content-center">
+          {{ if .photos }}
+          <!-- 外层容器：去除了背景和阴影，增加 pb-4 强行为最底部的“进度条”留出专属空间 -->
+          <div id="aboutPhotoCarousel" class="carousel slide w-100 pb-4" data-bs-ride="carousel" data-bs-interval="4000" style="max-width: 280px;">
+            
+            <!-- 轮播内容区 -->
+            <div class="carousel-inner">
+              {{ range $index, $item := .photos }}
+                {{ $photoPath := .src | default . }}
+                {{ $photoResource := resources.Get $photoPath }}
+                <div class="carousel-item {{ if eq $index 0 }}active{{ end }}">
+                  
+                  <!-- 第一层：图片部分 (单独包裹圆角和阴影，与文字完全剥离) -->
+                  <div class="shadow-sm rounded-3 overflow-hidden">
+                    <img 
+                      src="{{ if $photoResource }}{{ $photoResource.RelPermalink }}{{ else }}{{ $photoPath | relURL }}{{ end }}" 
+                      alt="{{ .caption | default "Photo" }}" 
+                      class="d-block w-100" 
+                      style="aspect-ratio: 3 / 4; object-fit: cover;"
+                    />
+                  </div>
+                  
+                  <!-- 第二层：文字部分 (离开图片独立存在) -->
+                  <!-- 使用 mt-3 产生向下的间距；设定 min-height 保证不管字数多少，进度条都不会上下跳动 -->
+                  <div class="text-center mt-3 px-2 d-flex justify-content-center align-items-start" style="min-height: 48px;">
+                    {{ if .caption }}
+                    <p class="m-0 text-muted" style="font-size: 0.95rem; line-height: 1.4;">{{ .caption }}</p>
+                    {{ end }}
+                  </div>
+                  
+                </div>
+              {{ end }}
+            </div>
+
+            <!-- 第三层：进度条指示器 (落在文字下方的空白处，脱离前两者) -->
+            {{ if gt (len .photos) 1 }}
+            <!-- 使用 filter: invert(0.6) 把原本白色的进度条变成高级灰，确保在白色或夜间模式背景下都清晰可见 -->
+            <div class="carousel-indicators" style="margin-bottom: -15px; filter: invert(0.6);">
+              {{ range $index, $item := .photos }}
+              <button type="button" data-bs-target="#aboutPhotoCarousel" data-bs-slide-to="{{ $index }}" class="{{ if eq $index 0 }}active{{ end }}" aria-label="Slide {{ add $index 1 }}"></button>
+              {{ end }}
+            </div>
+            
+            <!-- 左右切换箭头：高度限制在图片区域 (calc(100% - 65px))，防止点箭头时误触下方文字 -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#aboutPhotoCarousel" data-bs-slide="prev" style="height: calc(100% - 65px);">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#aboutPhotoCarousel" data-bs-slide="next" style="height: calc(100% - 65px);">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+            {{ end }}
+
+          </div>
+          {{ end }}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

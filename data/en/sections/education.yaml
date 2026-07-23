@@ -49,10 +49,12 @@ degrees:
   grade: #(optional)
     scale: GPA
     achieved: 4.1
-    outOf: 4.3, all major-related courses achieve A+, ranked 1/323
+    outOf: 4.3, all major-related courses achieve A+
+  ranking: "Ranked **1/323** in Mechanical Engineering cohort. Ranked **1st** in Qian Xuesen Pilot Class (Zhiyuan Honor Program). Ranked **1st** in Comprehensive Evaluation."
   takenCourses: #(optional)
     # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
     showGrades: true
+    title: "Core Curriculum that achieved high scores"
     collapseAfter: 5
     courses:
     - name: Mathematical Analysis (Honor) I
@@ -85,7 +87,7 @@ degrees:
     - name: Circumstance and Policy
       achieved: 4.3
       outOf: 4.3
-    - name: Artificial Intelligent Principles
+    - name: Artificial Intelligence Principles
       achieved: 4
       outOf: 4.3
     - name: An Introduction to Biology and Medicine (Honor)
