@@ -440,7 +440,7 @@ document.documentElement.setAttribute('data-theme', theme)
   
     
     
-    <li><a class=" list-link" href="/posts/notes-for-cpp-programming/ch11/" title="11-io">11-io</a></li>
+    <li><a class=" list-link" href="/posts/notes-for-cpp-programming/ch11/" title="11-iofiles">11-iofiles</a></li>
     
   
 
@@ -520,10 +520,12 @@ document.documentElement.setAttribute('data-theme', theme)
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch01/" class="post-card-link">
         <h5 class="card-title">1. Introduction</h5>
-        <p class="card-text post-summary">绪论 本章介绍计算机信息表示、程序设计语言层次、编译运行流程和程序设计过程。以下正文保留原始课堂笔记的全部要点。
+        <p class="card-text post-summary">绪论 这篇文章整理 C++ 学习前需要掌握的计算机基础：存储单位、进制、语言层次、程序从源代码到可执行文件的过程。
 基本 内存的最小单元是bit，一个bit存储一个二进制位（0/1）。一般8个bit组成一个byte
 在一般的机器中，内存按字节（byte）编址，内存大小也是按字节计量
-基本单位 位 比特 bit b
+图示转写：冯诺依曼体系结构 经典计算机硬件由输入设备、存储器、运算器、控制器和输出设备组成。其中运算器和控制器合称为 CPU。
+程序执行的大致过程是：
+输入设备把程序和数据装入计算机。 存储器保存程序、数据以及运算的中间结果和最终结果。 控制器根据指令控制程序运行，并协调其他部件工作。 运算器完成算术运算和逻辑运算。 输出设备把处理结果展示给用户。 基本单位 位 比特 bit b
 字节 byte B
 位：计算机中的最小的存储和处理单位，所有数据的处理和存储都是以bit为基础，例如算数运算、逻辑运算等。一个bit只能表示0和1
 字节：计算机数据存储和处理的基本单位，通常为8位，是一种度量方式，类似于分钟、平方米（内存地址是对字节进行编号）
@@ -532,12 +534,10 @@ document.documentElement.setAttribute('data-theme', theme)
 十进制
 二进制
 十六进制
-按字节寻址情况下可寻址范围是？(即地址编号的数量） FFFF+1= 2^16^ FFFF FFFF + 1 = 2^32^
+按字节寻址情况下可寻址范围是？(即地址编号的数量） FFFF+1= 216 FFFF FFFF + 1 = 232
 F=1111
 存储FFFF至少需要2个Byte，实际情况是4B
-高级语言和低级语言的区别 ![image-20260308135713805](../Notes for CPP Programing.assets/image-20260308135713805.png)
-程序（从源程序到可执行程序） ![image-20260308135137178](../Notes for CPP Programing.assets/image-20260308135137178.png)
-程序设计过程 算法设计 编码 编译与链接 调试与维护
+高级语言和低级语言的区别 表格转写：低级语言与高级语言的区别 维度 机器语言 汇编语言 高级语言 抽象程度 直接使用二进制指令 使用助记符表示指令 接近自然语言和数学表达式 可读性 很差 较差 较好 开发效率 很低 较低 高 执行效率 最高 高 需要编译器优化 硬件依赖 直接依赖 CPU 依赖特定 CPU 跨平台能力更强 典型形式 10110000 01100001 MOV A, 0x61 cout &lt;&lt; &quot;Hello&quot;; 程序（从源程序到可执行程序） 图示转写：从源程序到可执行程序 C++ 源代码通常经历以下阶段生成可执行文件：
 </p>
       </a>
       
@@ -571,7 +571,13 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch10/" class="post-card-link">
         <h5 class="card-title">10. Inheritance and Polymorphism</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">组合与继承 组合与继承是构造复杂类型的两种核心方式。本章整理对象成员、继承访问控制、多态和抽象类。
+组合 基类构造函数的调用方式
+如果派生类对象构造时对包含的基类对象是用基类默认的构造函数初始化的，那么在派生类构造函数的初始化列表中可以不出现基类构造函数调用。
+class Base { public: Base(int x) {} // 只有带参构造，没有默认构造 }; class Derived : public Base { public: // 错误： 错误：编译器不知道如何初始化基类部分 Derived() {} // 正确： 正确：显式调用基类带参构造 Derived() : Base(10) {} }; 继承 派生类成员的访问属性
+图示转写：继承方式与访问控制 派生类继承基类时，基类成员在派生类中的可见性受继承方式影响：
+继承方式 基类 public 成员 基类 protected 成员 基类 private 成员 public 继承 仍为 public 仍为 protected 派生类不可直接访问 protected 继承 变为 protected 仍为 protected 派生类不可直接访问 private 继承 变为 private 变为 private 派生类不可直接访问 最常用的是 public 继承，用来表达&quot;派生类是一种基类&quot;。
+</p>
       </a>
       
     </div>
@@ -581,7 +587,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        3 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch10/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>
@@ -603,8 +609,18 @@ F=1111
     </div>
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch11/" class="post-card-link">
-        <h5 class="card-title">11. io</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <h5 class="card-title">11. io Files</h5>
+        <p class="card-text post-summary">输入/输出文件 本章整理 C++ 控制台输入输出、格式控制、文本文件读写和二进制文件读写。
+基于控制台的输入/输出 控制台输入可以用&gt;&gt;, get, getline，控制台输出可以用&lt;&lt;, put
+无格式输出 图示转写：put 输出字符 ostream::put 用于向输出流写入一个字符，并返回当前输出流对象，因此可以连续调用：
+cout.put(&#39;A&#39;).put(&#39;\n&#39;); cout.put(65); // ASCII 码 65 对应字符 A 图示转写：write 无格式输出 ostream::write 按指定长度输出字符序列，不会因为遇到空格或 \0 自动停止：
+char buffer[] = &#34;HAPPY BIRTHDAY&#34;; cout.write(buffer, 10); // HAPPY BIRT cout.write(&#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;, 10); // ABCDEFGHIJ int x = 5; cout.write(reinterpret_cast&lt;char*&gt;(&amp;x), sizeof(x)); 最后一种写法用于二进制输出，直接写出变量在内存中的字节。
+无格式输入 图示转写：read 无格式输入 istream::read 从输入流读取指定数量的字节到缓冲区：
+char buffer[80]; cin.read(buffer, 10); cout.write(buffer, cin.gcount()); 读取二进制数据时常见写法如下：
+int x; cin.read(reinterpret_cast&lt;char*&gt;(&amp;x), sizeof(x)); gcount() 可以取得上一次无格式输入实际读取的字符数。
+格式化输入/输出： 设置整型数的基数
+#include &lt;iomanip&gt; // hex: 16 // oct: 8 // dec: 10 cin &gt;&gt; oct &gt;&gt; n; // 表示读入八进制的整数 cout &lt;&lt; hex &lt;&lt; n; // 表示输出十六进制的整数 cout &lt;&lt; setbase(8) &lt;&lt; n; // 表示输出八进制的整数 设置浮点数的精度
+</p>
       </a>
       
     </div>
@@ -614,7 +630,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        2 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch11/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>
@@ -637,7 +653,12 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch02/" class="post-card-link">
         <h5 class="card-title">2. Basics</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">程序的基本组成 这一章关注 C++ 程序的基本骨架，以及变量、常量和基础数据类型。理解这些内容后，才能稳定地阅读和编写简单程序。
+程序的基本组成 代码图转写：Hello World 程序组成 一个最小 C++ 程序通常包含注释、预处理、命名空间和主函数：
+// File: helloWorld.cpp // This program prints a message. #include &lt;iostream&gt; using namespace std; int main() { cout &lt;&lt; &#34;Hello world!&#34; &lt;&lt; endl; return 0; } 其中 #include &lt;iostream&gt; 引入输入输出库，using namespace std; 让代码可以直接使用标准库名称，main 是程序入口。
+注释、编译预处理、名字空间、主程序
+编译预处理： **库包含**：用#include实现，表示程序使用了某个库**宏定义**：用#define实现。**条件编译**：根据 #ifdef 或 #ifndef 等条件指令决定是否编译某部分代码。宏包括：不带参数的宏，通常用来定义符号常量带参数的宏，用来定义一些较为复杂的操作宏定义好处：增强代码可读性，一处改，处处改名字空间 表格转写：命名空间的三种使用方式 方法 示例 说明 直接使用完全限定名 std::cout &lt;&lt; &quot;Hello&quot;; 不引入命名空间，写法清晰，但代码较长。 使用 using 声明单个名字 using std::cout; 只引入需要的名字，冲突风险较小。 使用 using namespace using namespace std; 引入整个命名空间，初学阶段方便，但大型项目中容易产生命名冲突。 命名空间嵌套 using namespace one::other; 适合组织更复杂的模块层级。 主程序 函数头 main
+</p>
       </a>
       
     </div>
@@ -647,7 +668,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        3 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch02/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>
@@ -670,7 +691,25 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch03/" class="post-card-link">
         <h5 class="card-title">3. Branching</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">分支结构 分支结构用于让程序根据条件选择不同路径。本章整理关系表达式、逻辑运算符、条件语句和随机数的基础用法。
+关系表达式 只有赋值运算符是右结合，其余是左结合
+优先级：算术运算符&gt;关系运算符&gt;赋值运算符
+关系运算符内部，== 和 != 优先级较低
+逻辑运算符 逻辑运算符：逻辑非&gt;算术运算符&gt;逻辑与&gt;逻辑或
+优先级： ! &gt; 关系运算符 &gt; &amp;&amp; &gt; ||
+短路求值：
+逻辑表达式在执行时，先处理左边，如左边已能决定此逻辑表达式的结果，则右边不执行
+在&amp;&amp;表达式中，把false可能性较大的条件放在左边
+在||表达式中，把true可能性较大的条件放在左边
+节省计算量
+运算符优先级 表格转写：运算符优先级要点 C++ 运算符优先级从高到低大致如下：
+类别 运算符 后缀/成员访问 ()、[]、.、-&gt;、后置 ++、后置 -- 单目运算 前置 ++、前置 --、!、~、+、-、*、&amp;、sizeof 算术 *、/、% 高于 +、- 关系 &lt;、&lt;=、&gt;、&gt;=、==、!= 逻辑 &amp;&amp; 高于 ` 条件 ?: 赋值 =、+=、-=、*=、/=、%= 逗号 , 复杂表达式建议主动加括号，不要依赖读者记忆优先级。
+条件判断 if-else
+判断是否是闰年：
+bool result; result = (year % 4 == 0 &amp;&amp; year % 100 != 0)|| year % 400 == 0; cout &lt;&lt; (result ? &#34;yes&#34; : &#34;no&#34;); 配对原则：每个else子句是和在它之前最近的一个没有else子句的if语句配对
+条件表达式：
+cout &lt;&lt; (flag ? &#34;true&#34; : &#34;false&#34;); switch语句
+</p>
       </a>
       
     </div>
@@ -703,7 +742,15 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch04/" class="post-card-link">
         <h5 class="card-title">4. Loops</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">循环结构 循环结构用于重复执行一段逻辑。本章整理 for、while、do while、嵌套循环和哨兵循环等写法。
+for 循环执行顺序 for (表达式1; 表达式2; 表达式3) 的执行顺序是：
+先执行一次表达式 1，通常用于初始化循环变量。 判断表达式 2，如果为真则进入循环体。 执行循环体语句。 执行表达式 3，通常用于更新循环变量。 回到第 2 步继续判断。 示例：
+int sum = 0; for (int i = 1; i &lt;= 100; ++i) { sum += i; } 循环变量初值、终止条件和更新方向必须配套，否则容易出现死循环或边界错误。
+表达式1执行几次？ 1 表达式2执行几次？ 11 表达式3执行几次？ 10 for内循环体执行了几次？ 10 循环体结束后打印i=？ 11
+初值为1，公差为5的等差数列求和，并要求数列最大值小于101，和小于500， 逗号表达式
+斐波那契数列的前n项
+#include &lt;iostream&gt; using namespace std; int main() { int n; cin &gt;&gt; n; unsigned long long first = 1, second = 1; unsigned long long next; if (n == 1) { cout &lt;&lt; first &lt;&lt; &#34; &#34;; } else if (n == 2) { cout &lt;&lt; first &lt;&lt; &#34; &#34; &lt;&lt; second &lt;&lt; &#34; &#34;; } else { cout &lt;&lt; first &lt;&lt; &#34; &#34; &lt;&lt; second &lt;&lt; &#34; &#34;; for (int i = 1; i &lt;= n - 2; i++) { next = first + second; first = second; second = next; cout &lt;&lt; next &lt;&lt; &#34; &#34;; } } return 0; } 求e^x^的值 $$ e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots + \frac{x^n}{n!} + \cdots $$
+</p>
       </a>
       
     </div>
@@ -713,7 +760,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        5 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch04/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>
@@ -736,7 +783,10 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch05/" class="post-card-link">
         <h5 class="card-title">5. Arrays and Strings</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">数组 数组用于保存一组同类型数据。本章整理数组查找、遍历、多维数组、字符数组和字符串的基础操作。
+查找 二分法
+#include &lt;iostream&gt; using namespace std; int main() { int num[10] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}; int n; cin &gt;&gt; n; int left = 0, right = 9; int mid; bool found = false; while(left &lt;= right) { mid = (left + right) / 2; if(num[mid] == n) { found = true; break; } else if(num[mid] &lt; n) { left = mid + 1; } else{ right = mid - 1; } } if(found) { cout &lt;&lt; &#34;Found at index: &#34; &lt;&lt; mid &lt;&lt; endl; } else { cout &lt;&lt; &#34;Not found&#34; &lt;&lt; endl; } return 0; } 选择排序
+</p>
       </a>
       
     </div>
@@ -746,7 +796,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        8 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch05/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>
@@ -769,7 +819,19 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch06/" class="post-card-link">
         <h5 class="card-title">6. Functions</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">函数 函数把可复用逻辑封装成独立单元。本章整理函数定义、参数传递、作用域、存储类别和递归。
+函数 函数的定义 int p(int n) { ... } void printstar(void) { cout &lt;&lt; &#34; *\n&#34;; cout &lt;&lt; &#34; ***\n&#34;; cout &lt;&lt; &#34; *****\n&#34;; cout &lt;&lt; &#34; ********\n&#34;; cout &lt;&lt; &#34;**********\n&#34;; return; } 尾置返回类型
+auto add(int a, int b) -&gt; decltype(a + b) { ... } 函数原型声明 void PrintStar(int); void PrintStar(int n); int max(int, int); int max(int a, int b); 有分号
+函数的调用 函数定义在函数调用之后需要提前声明。
+栈
+帧
+函数调用的过程
+发生函数调用时： 1）为被调用函数的形参和局部变量分配空间，称作帧 2）计算每个实际参数值，并将实际参数赋值给形式参数，称作参数传递 传递方式：值传递，即求出实参的值并赋值给形参变量，函数中对形参的修改不影响实参（单向传递，实参→形参）
+执行被调用函数体： 1）保护调用函数现场，控制转入被调用函数，执行函数体的每个语句 2）当执行return语句或函数体结束时，控制将从函数返回
+从函数返回时： 1）计算return后面的表达式的值，控制返回到调用函数 2）用函数返回值初始化一个临时变量，置换本次函数调用 3）自动收回分配给被调用函数的内存 4）继续调用函数main后续语句的执行
+数组参数的传递机制 图示转写：数组参数的传递机制 数组作为函数参数时，形参接收到的是数组首元素的地址，而不是整个数组的副本。因此：
+int average(int arr[10]); int average(int arr[]); int average(int* arr); 这三种写法在函数形参中等价。由于函数只拿到首地址，数组长度不会自动传入，通常需要额外传递一个长度参数：
+</p>
       </a>
       
     </div>
@@ -779,7 +841,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        3 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch06/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>
@@ -802,7 +864,24 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch07/" class="post-card-link">
         <h5 class="card-title">7. Pointers and References</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">指针 指针变量 p 占用内存的大小，不取决于类型变量的大小，而是系统架构：
+32位系统：4 字节
+64位系统：8 字节
+指针的访问——解引用 NULL/nullptr是一个特殊指针值，称为空指针值为0，可被用来初始化一个指针，表示不指向任何地址，不能解引用空指针
+没有初始化的指针可能指向任意地址，对这些指针作解引用可能导致难以意料的错误
+统配指针类型void* 的特点：
+可以存储任何类型的地址（int*、char*、double*、对象指针等） 使用时需要强制类型转换才能解引用或操作 任何类型的指针都可以给void类型的指针赋值 指针与常量限定符const 常量指针：
+const int *p; 指针常量：
+int * const p; 指向常量的常量指针：
+const int * const p; 指针运算 指针运算 指针的加减法考虑指针的基类型
+对指针变量p加1，p的值增加了一个基类型的长度
+用指针访问数组 数组名保存了数组的起始地址，它是一个指针常量，值不能变
+如执行了p = array，array是array[0]的地址，则*p与array[0]是等价的
+如果指针p指向数组array的第k个元素，那么p+i指向第k+i个元素，p-i指向第k-i个元素，那么可以用*(array+k)表示array[k]
+*(p + k)为p的值 + k * sizeof(*p)，*(p - k)为p的值 - k * sizeof(*p)
+用指针遍历数组的五种方式：
+int i; int *p; for(i = 0; i &lt; 5; i++) cout &lt;&lt; array[i] &lt;&lt; endl; for(i = 0; i &lt; 5; i++) cout &lt;&lt; *(array+i) &lt;&lt; endl; for(p = array; p &lt; array + 5; p++) cout &lt;&lt; *p &lt;&lt; endl; for(p = array, i = 0; i &lt; 5; i++) cout &lt;&lt; *(p + i) &lt;&lt; endl; for(p = array, i = 0; i &lt; 5; i++) cout &lt;&lt; p[i] &lt;&lt; endl; 数组和指针是不同的，最根本的区别在于内存的分配：1. 定义数组：所有存放数组元素的空间；2. 定义指针：一个储存地址的空间
+</p>
       </a>
       
     </div>
@@ -812,7 +891,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        6 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch07/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>
@@ -835,7 +914,12 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch08/" class="post-card-link">
         <h5 class="card-title">8. Structs</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">结构体 结构体用于把多项相关数据组织成一个自定义类型。本章整理结构体定义、成员访问、结构体数组、指针和链表基础。
+结构体 图示转写：C++ 类型分类 C++ 中的数据类型可以粗略分为两类：
+类别 示例 基本类型 整型、实型、字符型、布尔型、枚举等 非基本类型 数组、指针、引用、结构体、联合、类等 结构体属于用户自定义类型，适合把一组相关数据组织成一个整体。
+初始化 法一
+struct studentT { const char *id; const char *name; int score; }; int main() { studentT student1; //student1在栈区 student1.id = &#34;00315&#34;; //&#34;00315&#34;在常量区，id指向它 student1.name = &#34;San Zhang&#34;; //&#34;San Zhang&#34;在常量区，name指向它 student1.score = 99; cout &lt;&lt; student1.name &lt;&lt; endl; } ┌────────────────────────────────────────────────────────┐ │ 常量区（只读） │ │ ┌──────────┐ ┌──────────────┐ │ │ │ &#34;00315&#34; │ │ &#34;San Zhang&#34; │ │ │ └──────────┘ └──────────────┘ │ │ ↑ ↑ │ └───────┼──────────────┼─────────────────────────────────┘ │ │ │ │ ┌───────┼──────────────┼─────────────────────────────────┐ │ │ 栈区 │ │ │ ┌────┴──────┐ ┌─────┴─────┐ │ │ │ id 指针 │ │ name 指针 │ ← student1 在栈区 │ │ │ 0x1000 │ │ 0x2000 │ │ │ └───────────┘ └───────────┘ │ │ ┌───────────┐ │ │ │ score=99 │ │ │ └───────────┘ │ └────────────────────────────────────────────────────────┘ id 和 name 是 指向常量字符的指针（const char*） 字符串字面量 &quot;00315&quot; 和 &quot;San Zhang&quot; 存储在常量区，类型是 const char[]，可以隐式转换为 const char* 赋值操作只是让指针指向常量区的字符串，不需要拷贝字符数据，也不需要分配内存 法二
+</p>
       </a>
       
     </div>
@@ -845,7 +929,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        5 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch08/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>
@@ -868,7 +952,16 @@ F=1111
     <div class="card-body">
       <a href="/posts/notes-for-cpp-programming/ch09/" class="post-card-link">
         <h5 class="card-title">9. Classes and Objects</h5>
-        <p class="card-text post-summary">Complete Post Coming Soon&hellip;</p>
+        <p class="card-text post-summary">创建新的类型 这一章开始进入面向对象编程，重点是类、对象、构造函数、析构函数、拷贝构造、const、静态成员和友元。
+对象 this指针 图示转写：this 指针 成员函数被某个对象调用时，编译器会把该对象的地址作为隐藏参数传入，这个隐藏参数就是 this 指针。它指向当前调用成员函数的对象。
+void create(int n, int d) { this-&gt;num = n; this-&gt;den = d; } 当形参与成员变量同名时，this-&gt;成员名 可以明确表示访问的是对象成员。
+代码转写：返回当前对象 成员函数可以返回 *this，常用于链式调用：
+Rational mod(int n, int d) { num = num + n; den = den + d; return *this; } 通常为了避免对象拷贝，实际工程中更常写成返回引用：Rational&amp; mod(int n, int d)。
+构造函数 初始化列表
+class point2d { private: int x; int y; public: point2d(int a, int b): x(a), y(b) {} }; 析构函数 若有指针则定义析构函数，无指针则不用管
+拷贝构造函数（复制构造函数）
+A a1, A a2; a1 = a2; //这是逐步拷贝 A a1; A a2 = a1; //将会自动调用拷贝函数 //拷贝构造 A(const A a){...} 拷贝构造函数 参数传递能否是值传递？不能。
+</p>
       </a>
       
     </div>
@@ -878,7 +971,7 @@ F=1111
       <span class="float-start">
         Thursday, July 23, 2026
          | 
-        1 minute
+        3 minutes
       </span>
       <a href="/posts/notes-for-cpp-programming/ch09/" class="float-end btn btn-outline-info btn-sm">Read</a>
     </div>

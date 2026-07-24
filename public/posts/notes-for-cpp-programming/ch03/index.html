@@ -45,7 +45,24 @@
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="3. Branching">
-	<meta name="twitter:description" content="Complete Post Coming Soon…">
+	<meta name="twitter:description" content="分支结构 分支结构用于让程序根据条件选择不同路径。本章整理关系表达式、逻辑运算符、条件语句和随机数的基础用法。
+关系表达式 只有赋值运算符是右结合，其余是左结合
+优先级：算术运算符&gt;关系运算符&gt;赋值运算符
+关系运算符内部，== 和 != 优先级较低
+逻辑运算符 逻辑运算符：逻辑非&gt;算术运算符&gt;逻辑与&gt;逻辑或
+优先级： ! &gt; 关系运算符 &gt; &amp;&amp; &gt; ||
+短路求值：
+逻辑表达式在执行时，先处理左边，如左边已能决定此逻辑表达式的结果，则右边不执行
+在&amp;&amp;表达式中，把false可能性较大的条件放在左边
+在||表达式中，把true可能性较大的条件放在左边
+节省计算量
+运算符优先级 表格转写：运算符优先级要点 C&#43;&#43; 运算符优先级从高到低大致如下：
+类别 运算符 后缀/成员访问 ()、[]、.、-&gt;、后置 &#43;&#43;、后置 -- 单目运算 前置 &#43;&#43;、前置 --、!、~、&#43;、-、*、&amp;、sizeof 算术 *、/、% 高于 &#43;、- 关系 &lt;、&lt;=、&gt;、&gt;=、==、!= 逻辑 &amp;&amp; 高于 ` 条件 ?: 赋值 =、&#43;=、-=、*=、/=、%= 逗号 , 复杂表达式建议主动加括号，不要依赖读者记忆优先级。
+条件判断 if-else
+判断是否是闰年：
+bool result; result = (year % 4 == 0 &amp;&amp; year % 100 != 0)|| year % 400 == 0; cout &lt;&lt; (result ? &#34;yes&#34; : &#34;no&#34;); 配对原则：每个else子句是和在它之前最近的一个没有else子句的if语句配对
+条件表达式：
+cout &lt;&lt; (flag ? &#34;true&#34; : &#34;false&#34;); switch语句">
 
     
 <meta name="description" content="3. Branching" />
@@ -443,7 +460,7 @@ document.documentElement.setAttribute('data-theme', theme)
   
     
     
-    <li><a class=" list-link" href="/posts/notes-for-cpp-programming/ch11/" title="11-io">11-io</a></li>
+    <li><a class=" list-link" href="/posts/notes-for-cpp-programming/ch11/" title="11-iofiles">11-iofiles</a></li>
     
   
 
@@ -533,8 +550,99 @@ document.documentElement.setAttribute('data-theme', theme)
 
         
         <div class="post-content" id="post-content">
-          <h3 id="complete-post-coming-soon">Complete Post Coming Soon&hellip;</h3>
-
+          <h1 id="分支结构">分支结构</h1>
+<blockquote>
+<p>分支结构用于让程序根据条件选择不同路径。本章整理关系表达式、逻辑运算符、条件语句和随机数的基础用法。</p>
+</blockquote>
+<h2 id="关系表达式">关系表达式</h2>
+<p>只有赋值运算符是右结合，其余是左结合</p>
+<p><strong>优先级：算术运算符&gt;关系运算符&gt;赋值运算符</strong></p>
+<p>关系运算符内部，== 和 != 优先级较低</p>
+<h2 id="逻辑运算符">逻辑运算符</h2>
+<p>逻辑运算符：逻辑非&gt;算术运算符&gt;逻辑与&gt;逻辑或</p>
+<p><strong>优先级： ! &gt; 关系运算符 &gt; &amp;&amp; &gt; ||</strong></p>
+<p>短路求值：</p>
+<p>逻辑表达式在执行时，先处理左边，如左边已能决定此逻辑表达式的结果，则右边不执行</p>
+<p>在&amp;&amp;表达式中，把false可能性较大的条件放在左边</p>
+<p>在||表达式中，把true可能性较大的条件放在左边</p>
+<p>节省计算量</p>
+<h2 id="运算符优先级">运算符优先级</h2>
+<h3 id="表格转写运算符优先级要点">表格转写：运算符优先级要点</h3>
+<p>C++ 运算符优先级从高到低大致如下：</p>
+<table>
+	<thead>
+			<tr>
+					<th>类别</th>
+					<th>运算符</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>后缀/成员访问</td>
+					<td><code>()</code>、<code>[]</code>、<code>.</code>、<code>-&gt;</code>、后置 <code>++</code>、后置 <code>--</code></td>
+			</tr>
+			<tr>
+					<td>单目运算</td>
+					<td>前置 <code>++</code>、前置 <code>--</code>、<code>!</code>、<code>~</code>、<code>+</code>、<code>-</code>、<code>*</code>、<code>&amp;</code>、<code>sizeof</code></td>
+			</tr>
+			<tr>
+					<td>算术</td>
+					<td><code>*</code>、<code>/</code>、<code>%</code> 高于 <code>+</code>、<code>-</code></td>
+			</tr>
+			<tr>
+					<td>关系</td>
+					<td><code>&lt;</code>、<code>&lt;=</code>、<code>&gt;</code>、<code>&gt;=</code>、<code>==</code>、<code>!=</code></td>
+			</tr>
+			<tr>
+					<td>逻辑</td>
+					<td><code>&amp;&amp;</code> 高于 `</td>
+			</tr>
+			<tr>
+					<td>条件</td>
+					<td><code>?:</code></td>
+			</tr>
+			<tr>
+					<td>赋值</td>
+					<td><code>=</code>、<code>+=</code>、<code>-=</code>、<code>*=</code>、<code>/=</code>、<code>%=</code></td>
+			</tr>
+			<tr>
+					<td>逗号</td>
+					<td><code>,</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>复杂表达式建议主动加括号，不要依赖读者记忆优先级。</p>
+<h2 id="条件判断">条件判断</h2>
+<p>if-else</p>
+<p>判断是否是闰年：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> result;
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> (year <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> year <span style="color:#f92672">%</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>)<span style="color:#f92672">||</span> year <span style="color:#f92672">%</span> <span style="color:#ae81ff">400</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>cout <span style="color:#f92672">&lt;&lt;</span> (result <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;no&#34;</span>);
+</span></span></code></pre></div><p>配对原则：每个else子句是和在它之前<strong>最近</strong>的一个没有else子句的if语句配对</p>
+<p>条件表达式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>cout <span style="color:#f92672">&lt;&lt;</span> (flag <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;false&#34;</span>);
+</span></span></code></pre></div><p>switch语句</p>
+<h2 id="随机数生成">随机数生成</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">   </span><span style="color:#75715e">//包含伪随机数生成函数和种子设置函数，隐式包含在编译器里面
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctime&gt;</span><span style="color:#75715e">     </span><span style="color:#75715e">//包含取系统时间函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> num1, num2, op, result1, result2;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//num1,num2:操作数, op:运算符,result1,result2: 结果
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    srand(time(NULL));                           <span style="color:#75715e">//随机数种子初始化
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    num1 <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//生成运算数
+</span></span></span><span style="display:flex;"><span>    num2 <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//生成运算数
+</span></span></span><span style="display:flex;"><span>    op <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>;    <span style="color:#75715e">//生成运算符 0--+, 1-- -, 2--*, 3-- /
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>生成不同的运算数据：将生成的随机数映射到0-9之间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>rand()<span style="color:#f92672">%</span><span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>rand()<span style="color:#f92672">*</span><span style="color:#ae81ff">10</span><span style="color:#f92672">/</span>(RAND_MAX<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div>
         </div>
 
         
@@ -674,11 +782,15 @@ document.documentElement.setAttribute('data-theme', theme)
     <div class="toc">
       <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#关系表达式">关系表达式</a></li>
+    <li><a href="#逻辑运算符">逻辑运算符</a></li>
+    <li><a href="#运算符优先级">运算符优先级</a>
       <ul>
-        <li><a href="#complete-post-coming-soon">Complete Post Coming Soon&hellip;</a></li>
+        <li><a href="#表格转写运算符优先级要点">表格转写：运算符优先级要点</a></li>
       </ul>
     </li>
+    <li><a href="#条件判断">条件判断</a></li>
+    <li><a href="#随机数生成">随机数生成</a></li>
   </ul>
 </nav>
     </div>

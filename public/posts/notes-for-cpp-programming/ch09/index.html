@@ -45,7 +45,15 @@
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="9. Classes and Objects">
-	<meta name="twitter:description" content="Complete Post Coming Soon…">
+	<meta name="twitter:description" content="创建新的类型 这一章开始进入面向对象编程，重点是类、对象、构造函数、析构函数、拷贝构造、const、静态成员和友元。
+对象 this指针 图示转写：this 指针 成员函数被某个对象调用时，编译器会把该对象的地址作为隐藏参数传入，这个隐藏参数就是 this 指针。它指向当前调用成员函数的对象。
+void create(int n, int d) { this-&gt;num = n; this-&gt;den = d; } 当形参与成员变量同名时，this-&gt;成员名 可以明确表示访问的是对象成员。
+代码转写：返回当前对象 成员函数可以返回 *this，常用于链式调用：
+Rational mod(int n, int d) { num = num &#43; n; den = den &#43; d; return *this; } 通常为了避免对象拷贝，实际工程中更常写成返回引用：Rational&amp; mod(int n, int d)。
+构造函数 初始化列表
+class point2d { private: int x; int y; public: point2d(int a, int b): x(a), y(b) {} }; 析构函数 若有指针则定义析构函数，无指针则不用管
+拷贝构造函数（复制构造函数）
+A a1, A a2; a1 = a2; //这是逐步拷贝 A a1; A a2 = a1; //将会自动调用拷贝函数 //拷贝构造 A(const A a){...} 拷贝构造函数 参数传递能否是值传递？不能。">
 
     
 <meta name="description" content="9. Classes and Objects" />
@@ -443,7 +451,7 @@ document.documentElement.setAttribute('data-theme', theme)
   
     
     
-    <li><a class=" list-link" href="/posts/notes-for-cpp-programming/ch11/" title="11-io">11-io</a></li>
+    <li><a class=" list-link" href="/posts/notes-for-cpp-programming/ch11/" title="11-iofiles">11-iofiles</a></li>
     
   
 
@@ -521,7 +529,7 @@ document.documentElement.setAttribute('data-theme', theme)
           <p class="text-muted">
             Thursday, July 23, 2026
              | 
-            1minute</p>
+            3minutes</p>
         </div>
         
 
@@ -533,8 +541,291 @@ document.documentElement.setAttribute('data-theme', theme)
 
         
         <div class="post-content" id="post-content">
-          <h3 id="complete-post-coming-soon">Complete Post Coming Soon&hellip;</h3>
-
+          <h1 id="创建新的类型">创建新的类型</h1>
+<blockquote>
+<p>这一章开始进入面向对象编程，重点是类、对象、构造函数、析构函数、拷贝构造、<code>const</code>、静态成员和友元。</p>
+</blockquote>
+<h2 id="对象">对象</h2>
+<h3 id="this指针">this指针</h3>
+<h3 id="图示转写this-指针">图示转写：<code>this</code> 指针</h3>
+<p>成员函数被某个对象调用时，编译器会把该对象的地址作为隐藏参数传入，这个隐藏参数就是 <code>this</code> 指针。它指向当前调用成员函数的对象。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">create</span>(<span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span> d)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>num <span style="color:#f92672">=</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>den <span style="color:#f92672">=</span> d;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>当形参与成员变量同名时，<code>this-&gt;成员名</code> 可以明确表示访问的是对象成员。</p>
+<h3 id="代码转写返回当前对象">代码转写：返回当前对象</h3>
+<p>成员函数可以返回 <code>*this</code>，常用于链式调用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>Rational <span style="color:#a6e22e">mod</span>(<span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span> d)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    num <span style="color:#f92672">=</span> num <span style="color:#f92672">+</span> n;
+</span></span><span style="display:flex;"><span>    den <span style="color:#f92672">=</span> den <span style="color:#f92672">+</span> d;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>通常为了避免对象拷贝，实际工程中更常写成返回引用：<code>Rational&amp; mod(int n, int d)</code>。</p>
+<h2 id="构造函数">构造函数</h2>
+<p>初始化列表</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">point2d</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> x; <span style="color:#66d9ef">int</span> y;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    point2d(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)<span style="color:#f92672">:</span> x(a), y(b) {}
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="析构函数">析构函数</h2>
+<p>若有指针则定义析构函数，无指针则不用管</p>
+<p>拷贝构造函数（复制构造函数）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>A a1, A a2;
+</span></span><span style="display:flex;"><span>a1 <span style="color:#f92672">=</span> a2;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//这是逐步拷贝
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A a1;
+</span></span><span style="display:flex;"><span>A a2 <span style="color:#f92672">=</span> a1;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//将会自动调用拷贝函数
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//拷贝构造
+</span></span></span><span style="display:flex;"><span>A(<span style="color:#66d9ef">const</span> A a){...}
+</span></span></code></pre></div><h2 id="拷贝构造函数">拷贝构造函数</h2>
+<p>参数传递能否是值传递？不能。</p>
+<p>系统有缺省的复制构造函数么？有。</p>
+<p>如果没有显示定义，编译器自动生成一个默认复制构造函数，它将实参对象的数据成员逐字节拷贝给正在创建对象的数据成员</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">point</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x, y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    point(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> b;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    point(<span style="color:#66d9ef">const</span> point <span style="color:#f92672">&amp;</span>p)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> p.x;
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> p.y;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>自动调用复制构造函数：</strong></p>
+<p>（1）新对象定义时</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>DoubleArray <span style="color:#a6e22e">array2</span>(array1);      
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//OR
+</span></span></span><span style="display:flex;"><span>DoubleArray array2 <span style="color:#f92672">=</span> array1; <span style="color:#75715e">// 注意不是两对象之间的简单赋值 如：array2 = array1
+</span></span></span></code></pre></div><p>（2）函数调用时，对象作为实参传给形参</p>
+<p>不建议：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(DoubleArray arr); <span style="color:#75715e">//函数声明
+</span></span></span><span style="display:flex;"><span>DoubleArray array1; <span style="color:#75715e">//对象定义
+</span></span></span><span style="display:flex;"><span>f(array1); <span style="color:#75715e">//函数调用
+</span></span></span></code></pre></div><p>建议：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(DoubleArray <span style="color:#f92672">&amp;</span>arr);
+</span></span><span style="display:flex;"><span>DoubleArray array1;
+</span></span><span style="display:flex;"><span>f(array1);
+</span></span></code></pre></div><p>参数传递路径：array1（实参）→arr（形参）</p>
+<p>（3）函数返回一个对象时，会将返回的对象传给临时对象</p>
+<p><strong>自定义的复制构造函数（深拷贝）</strong></p>
+<p>一个对象的修改将会影响另一个对象</p>
+<p>如果两个对象的作用域不同，当一个对象析构时，另一个对象也将丧失它的空间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>DoubleArray<span style="color:#f92672">::</span>DoubleArray(<span style="color:#66d9ef">const</span> DoubleArray <span style="color:#f92672">&amp;</span>arr)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    low <span style="color:#f92672">=</span> arr.low;
+</span></span><span style="display:flex;"><span>    high <span style="color:#f92672">=</span> arr.high;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (arr.storage)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        storage <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">double</span>[high <span style="color:#960050;background-color:#1e0010">–</span> low <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> high <span style="color:#960050;background-color:#1e0010">–</span>low <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>            storage[i] <span style="color:#f92672">=</span> arr.storage[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="对象的生命周期全局局部静态局部">对象的生命周期(全局、局部、静态局部)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include&lt;iostream&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateAndDestroy</span> 
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    CreateAndDestroy(<span style="color:#66d9ef">int</span> ID)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        objectID <span style="color:#f92672">=</span> ID; 
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;constructor &#34;</span> <span style="color:#f92672">&lt;&lt;</span> objectID <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    CreateAndDestroy(<span style="color:#66d9ef">const</span> CreateAndDestroy <span style="color:#f92672">&amp;</span>a)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        objectID <span style="color:#f92672">=</span> a.objectID;
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;copy constructor &#34;</span> <span style="color:#f92672">&lt;&lt;</span> objectID <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>CreateAndDestroy()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;destructor &#34;</span> <span style="color:#f92672">&lt;&lt;</span> objectID <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> objectID; 
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CreateAndDestroy <span style="color:#a6e22e">obj0</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f1</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;f1:&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> CreateAndDestroy obj1(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    CreateAndDestroy obj2(<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    CreateAndDestroy obj3(<span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>    f1();
+</span></span><span style="display:flex;"><span>    f1();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>输出：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>constructor <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>constructor <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>f1<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>constructor <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>constructor <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>destructor <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>f1<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>constructor <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>destructor <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>destructor <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>destructor <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>destructor <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p><strong>消失顺序</strong>：</p>
+<p><strong>1、局部变量先消失，然后是静态局部变量，最后是全局变量；</strong></p>
+<p><strong>2、后创建的先消失；</strong></p>
+<h2 id="const与类">const与类</h2>
+<h3 id="常量数据成员">常量数据成员</h3>
+<p>类的数据成员可以定义为常量，在对象生成时给出常量值，在对象的生存期内，它的值是不能改变的</p>
+<h3 id="常量对象">常量对象</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> Rational <span style="color:#a6e22e">r1</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>);
+</span></span></code></pre></div><p>常量对象定义后不能被修改</p>
+<h3 id="常量成员函数">常量成员函数</h3>
+<p><strong>常量对象不能调用非常量成员函数，只能调用常量成员函数</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span>() <span style="color:#66d9ef">const</span>;
+</span></span></code></pre></div><h2 id="静态成员">静态成员</h2>
+<h3 id="静态数据成员">静态数据成员</h3>
+<p>不必为每个对象设置一个数据成员，只需共享一个相同的值即可</p>
+<p>不用全局变量，因为缺乏保护，可能产生名称冲突</p>
+<p>需要定义值：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">double</span> SavingAccount<span style="color:#f92672">::</span>rate <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.05</span>;
+</span></span></code></pre></div><h3 id="静态成员函数">静态成员函数</h3>
+<p>静态成员函数用于操作静态数据成员，只能访问静态数据成员，不能访问非静态数据成员，最大特点：没有this指针。</p>
+<p>一般的成员函数能访问静态、非静态数据成员</p>
+<h3 id="静态常量数据成员">静态常量数据成员</h3>
+<p><code>static const</code></p>
+<h2 id="友元">友元</h2>
+<h3 id="友元函数">友元函数</h3>
+<p><strong>友元定义在类内：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">girl</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">10</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> age;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    girl(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>n, <span style="color:#66d9ef">int</span> d)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        strcpy(name, n);
+</span></span><span style="display:flex;"><span>        age <span style="color:#f92672">=</span> d;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">friend</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">disp</span>(girl <span style="color:#f92672">&amp;</span>x)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> x.name <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> x.age <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    girl g(<span style="color:#e6db74">&#34;Alice&#34;</span>, <span style="color:#ae81ff">20</span>);
+</span></span><span style="display:flex;"><span>    disp(g);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>友元定义在类外：</strong></p>
+<p>（这没有用到友元）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">girl</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">10</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> age;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    girl(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>n, <span style="color:#66d9ef">int</span> d)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        strcpy(name, n);
+</span></span><span style="display:flex;"><span>        age <span style="color:#f92672">=</span> d;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">disp</span>(girl <span style="color:#f92672">&amp;</span>x);
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> girl<span style="color:#f92672">::</span>disp(girl <span style="color:#f92672">&amp;</span>x)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> x.name <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> x.age <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    girl g(<span style="color:#e6db74">&#34;Alice&#34;</span>, <span style="color:#ae81ff">20</span>);
+</span></span><span style="display:flex;"><span>    g.disp(g);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>（这用到友元）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">girl</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">10</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> age;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    girl(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>n, <span style="color:#66d9ef">int</span> d)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        strcpy(name, n);
+</span></span><span style="display:flex;"><span>        age <span style="color:#f92672">=</span> d;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">friend</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">disp</span>(girl <span style="color:#f92672">&amp;</span>x);
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">disp</span>(girl <span style="color:#f92672">&amp;</span>x)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> x.name <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> x.age <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    girl g(<span style="color:#e6db74">&#34;Alice&#34;</span>, <span style="color:#ae81ff">20</span>);
+</span></span><span style="display:flex;"><span>    disp(g);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="友元成员">友元成员</h3>
+<p>是其他类的成员函数。</p>
+<p>可以访问friend声明语句所在类的私有成员和公有成员。</p>
+<p>类A的成员函数作为类B的友元函数时，必须先定义类A，再定义类B。在定义类A和B前必须先声明类B。</p>
+<p>格式：friend  函数返回类型  类名标识符::</p>
+<pre><code>    函数名(参数列表)； 
+</code></pre>
+<h3 id="友元类">友元类</h3>
+<p>整个类作为另一个类的友元。</p>
+<p>当A类被说明为类B的友元时，类A的所有函数都是类B的友元函数</p>
+<p>声明方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Y</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">…</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">X</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">…</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">friend</span> Y;    <span style="color:#75715e">//或friend class Y
+</span></span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">…</span>
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div>
         </div>
 
         
@@ -674,9 +965,36 @@ document.documentElement.setAttribute('data-theme', theme)
     <div class="toc">
       <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#对象">对象</a>
       <ul>
-        <li><a href="#complete-post-coming-soon">Complete Post Coming Soon&hellip;</a></li>
+        <li><a href="#this指针">this指针</a></li>
+        <li><a href="#图示转写this-指针">图示转写：<code>this</code> 指针</a></li>
+        <li><a href="#代码转写返回当前对象">代码转写：返回当前对象</a></li>
+      </ul>
+    </li>
+    <li><a href="#构造函数">构造函数</a></li>
+    <li><a href="#析构函数">析构函数</a></li>
+    <li><a href="#拷贝构造函数">拷贝构造函数</a></li>
+    <li><a href="#对象的生命周期全局局部静态局部">对象的生命周期(全局、局部、静态局部)</a></li>
+    <li><a href="#const与类">const与类</a>
+      <ul>
+        <li><a href="#常量数据成员">常量数据成员</a></li>
+        <li><a href="#常量对象">常量对象</a></li>
+        <li><a href="#常量成员函数">常量成员函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#静态成员">静态成员</a>
+      <ul>
+        <li><a href="#静态数据成员">静态数据成员</a></li>
+        <li><a href="#静态成员函数">静态成员函数</a></li>
+        <li><a href="#静态常量数据成员">静态常量数据成员</a></li>
+      </ul>
+    </li>
+    <li><a href="#友元">友元</a>
+      <ul>
+        <li><a href="#友元函数">友元函数</a></li>
+        <li><a href="#友元成员">友元成员</a></li>
+        <li><a href="#友元类">友元类</a></li>
       </ul>
     </li>
   </ul>

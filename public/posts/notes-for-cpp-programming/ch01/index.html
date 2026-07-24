@@ -45,10 +45,12 @@
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="1. Introduction">
-	<meta name="twitter:description" content="绪论 本章介绍计算机信息表示、程序设计语言层次、编译运行流程和程序设计过程。以下正文保留原始课堂笔记的全部要点。
+	<meta name="twitter:description" content="绪论 这篇文章整理 C&#43;&#43; 学习前需要掌握的计算机基础：存储单位、进制、语言层次、程序从源代码到可执行文件的过程。
 基本 内存的最小单元是bit，一个bit存储一个二进制位（0/1）。一般8个bit组成一个byte
 在一般的机器中，内存按字节（byte）编址，内存大小也是按字节计量
-基本单位 位 比特 bit b
+图示转写：冯诺依曼体系结构 经典计算机硬件由输入设备、存储器、运算器、控制器和输出设备组成。其中运算器和控制器合称为 CPU。
+程序执行的大致过程是：
+输入设备把程序和数据装入计算机。 存储器保存程序、数据以及运算的中间结果和最终结果。 控制器根据指令控制程序运行，并协调其他部件工作。 运算器完成算术运算和逻辑运算。 输出设备把处理结果展示给用户。 基本单位 位 比特 bit b
 字节 byte B
 位：计算机中的最小的存储和处理单位，所有数据的处理和存储都是以bit为基础，例如算数运算、逻辑运算等。一个bit只能表示0和1
 字节：计算机数据存储和处理的基本单位，通常为8位，是一种度量方式，类似于分钟、平方米（内存地址是对字节进行编号）
@@ -57,12 +59,10 @@
 十进制
 二进制
 十六进制
-按字节寻址情况下可寻址范围是？(即地址编号的数量） FFFF&#43;1= 2^16^ FFFF FFFF &#43; 1 = 2^32^
+按字节寻址情况下可寻址范围是？(即地址编号的数量） FFFF&#43;1= 216 FFFF FFFF &#43; 1 = 232
 F=1111
 存储FFFF至少需要2个Byte，实际情况是4B
-高级语言和低级语言的区别 ![image-20260308135713805](../Notes for CPP Programing.assets/image-20260308135713805.png)
-程序（从源程序到可执行程序） ![image-20260308135137178](../Notes for CPP Programing.assets/image-20260308135137178.png)
-程序设计过程 算法设计 编码 编译与链接 调试与维护">
+高级语言和低级语言的区别 表格转写：低级语言与高级语言的区别 维度 机器语言 汇编语言 高级语言 抽象程度 直接使用二进制指令 使用助记符表示指令 接近自然语言和数学表达式 可读性 很差 较差 较好 开发效率 很低 较低 高 执行效率 最高 高 需要编译器优化 硬件依赖 直接依赖 CPU 依赖特定 CPU 跨平台能力更强 典型形式 10110000 01100001 MOV A, 0x61 cout &lt;&lt; &#34;Hello&#34;; 程序（从源程序到可执行程序） 图示转写：从源程序到可执行程序 C&#43;&#43; 源代码通常经历以下阶段生成可执行文件：">
 
     
 <meta name="description" content="1. Introduction" />
@@ -460,7 +460,7 @@ document.documentElement.setAttribute('data-theme', theme)
   
     
     
-    <li><a class=" list-link" href="/posts/notes-for-cpp-programming/ch11/" title="11-io">11-io</a></li>
+    <li><a class=" list-link" href="/posts/notes-for-cpp-programming/ch11/" title="11-iofiles">11-iofiles</a></li>
     
   
 
@@ -552,12 +552,21 @@ document.documentElement.setAttribute('data-theme', theme)
         <div class="post-content" id="post-content">
           <h1 id="绪论">绪论</h1>
 <blockquote>
-<p>本章介绍计算机信息表示、程序设计语言层次、编译运行流程和程序设计过程。以下正文保留原始课堂笔记的全部要点。</p>
+<p>这篇文章整理 C++ 学习前需要掌握的计算机基础：存储单位、进制、语言层次、程序从源代码到可执行文件的过程。</p>
 </blockquote>
-<h3 id="基本">基本</h3>
+<h2 id="基本">基本</h2>
 <p>内存的最小单元是bit，一个bit存储一个二进制位（0/1）。一般8个bit组成一个byte</p>
 <p>在一般的机器中，内存按字节（byte）编址，内存大小也是按字节计量</p>
-<p><img src="images/posts/writing-posts/cpp-notes-assets/university.png" alt="image-20260302142421900"></p>
+<h3 id="图示转写冯诺依曼体系结构">图示转写：冯诺依曼体系结构</h3>
+<p>经典计算机硬件由输入设备、存储器、运算器、控制器和输出设备组成。其中运算器和控制器合称为 CPU。</p>
+<p>程序执行的大致过程是：</p>
+<ol>
+<li>输入设备把程序和数据装入计算机。</li>
+<li>存储器保存程序、数据以及运算的中间结果和最终结果。</li>
+<li>控制器根据指令控制程序运行，并协调其他部件工作。</li>
+<li>运算器完成算术运算和逻辑运算。</li>
+<li>输出设备把处理结果展示给用户。</li>
+</ol>
 <p>基本单位 位 比特 bit b</p>
 <p>字节 byte B</p>
 <p>位：计算机中的<strong>最小</strong>的存储和处理单位，所有数据的处理和存储都是以bit为基础，例如算数运算、逻辑运算等。一个bit只能表示0和1</p>
@@ -567,15 +576,101 @@ document.documentElement.setAttribute('data-theme', theme)
 <p>十进制</p>
 <p>二进制</p>
 <p>十六进制</p>
-<p>按字节寻址情况下可寻址范围是？(即地址编号的数量）   FFFF+1= 2^16^     FFFF FFFF + 1 = 2^32^</p>
+<p>按字节寻址情况下可寻址范围是？(即地址编号的数量）   FFFF+1= 2<sup>16</sup>     FFFF FFFF + 1 = 2<sup>32</sup></p>
 <p>F=1111</p>
 <p>存储FFFF至少需要2个Byte，实际情况是4B</p>
-<h3 id="高级语言和低级语言的区别">高级语言和低级语言的区别</h3>
-<p>![image-20260308135713805](../Notes for CPP Programing.assets/image-20260308135713805.png)</p>
-<h3 id="程序从源程序到可执行程序">程序（从源程序到可执行程序）</h3>
-<p>![image-20260308135137178](../Notes for CPP Programing.assets/image-20260308135137178.png)</p>
-<h3 id="程序设计过程">程序设计过程</h3>
+<h2 id="高级语言和低级语言的区别">高级语言和低级语言的区别</h2>
+<h3 id="表格转写低级语言与高级语言的区别">表格转写：低级语言与高级语言的区别</h3>
+<table>
+	<thead>
+			<tr>
+					<th>维度</th>
+					<th>机器语言</th>
+					<th>汇编语言</th>
+					<th>高级语言</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>抽象程度</td>
+					<td>直接使用二进制指令</td>
+					<td>使用助记符表示指令</td>
+					<td>接近自然语言和数学表达式</td>
+			</tr>
+			<tr>
+					<td>可读性</td>
+					<td>很差</td>
+					<td>较差</td>
+					<td>较好</td>
+			</tr>
+			<tr>
+					<td>开发效率</td>
+					<td>很低</td>
+					<td>较低</td>
+					<td>高</td>
+			</tr>
+			<tr>
+					<td>执行效率</td>
+					<td>最高</td>
+					<td>高</td>
+					<td>需要编译器优化</td>
+			</tr>
+			<tr>
+					<td>硬件依赖</td>
+					<td>直接依赖 CPU</td>
+					<td>依赖特定 CPU</td>
+					<td>跨平台能力更强</td>
+			</tr>
+			<tr>
+					<td>典型形式</td>
+					<td><code>10110000 01100001</code></td>
+					<td><code>MOV A, 0x61</code></td>
+					<td><code>cout &lt;&lt; &quot;Hello&quot;;</code></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="程序从源程序到可执行程序">程序（从源程序到可执行程序）</h2>
+<h3 id="图示转写从源程序到可执行程序">图示转写：从源程序到可执行程序</h3>
+<p>C++ 源代码通常经历以下阶段生成可执行文件：</p>
+<ol>
+<li>预处理：处理 <code>#include</code>、<code>#define</code>、条件编译等，生成预处理后的源文件。</li>
+<li>编译：把 C++ 源代码翻译成汇编代码。</li>
+<li>汇编：把汇编代码翻译成目标文件。</li>
+<li>链接：把目标文件和库文件组合起来，生成可执行程序。</li>
+</ol>
+<p>常见的命令形式如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>g++ hello.cpp -o hello
+</span></span><span style="display:flex;"><span>./hello
+</span></span></code></pre></div><h2 id="程序设计过程">程序设计过程</h2>
 <p>算法设计   编码   编译与链接   调试与维护</p>
+<h2 id="补充几个容易混淆的概念">补充：几个容易混淆的概念</h2>
+<table>
+	<thead>
+			<tr>
+					<th>概念</th>
+					<th>重点</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>bit</td>
+					<td>二进制位，只能表示 <code>0</code> 或 <code>1</code>。</td>
+			</tr>
+			<tr>
+					<td>byte</td>
+					<td>字节，通常等于 8 bit，是内存编址和容量描述的基本单位。</td>
+			</tr>
+			<tr>
+					<td>字长</td>
+					<td>CPU 一次可以处理的数据宽度，例如 32 位、64 位。</td>
+			</tr>
+			<tr>
+					<td>地址空间</td>
+					<td>能表示多少个不同地址，取决于地址位数。</td>
+			</tr>
+	</tbody>
+</table>
+<p>例如 16 位地址最多表示 <code>2^16</code> 个地址；如果按字节编址，则最多能寻址 <code>2^16</code> 个字节。</p>
 
         </div>
 
@@ -707,14 +802,23 @@ document.documentElement.setAttribute('data-theme', theme)
     <div class="toc">
       <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#基本">基本</a>
       <ul>
-        <li><a href="#基本">基本</a></li>
-        <li><a href="#高级语言和低级语言的区别">高级语言和低级语言的区别</a></li>
-        <li><a href="#程序从源程序到可执行程序">程序（从源程序到可执行程序）</a></li>
-        <li><a href="#程序设计过程">程序设计过程</a></li>
+        <li><a href="#图示转写冯诺依曼体系结构">图示转写：冯诺依曼体系结构</a></li>
       </ul>
     </li>
+    <li><a href="#高级语言和低级语言的区别">高级语言和低级语言的区别</a>
+      <ul>
+        <li><a href="#表格转写低级语言与高级语言的区别">表格转写：低级语言与高级语言的区别</a></li>
+      </ul>
+    </li>
+    <li><a href="#程序从源程序到可执行程序">程序（从源程序到可执行程序）</a>
+      <ul>
+        <li><a href="#图示转写从源程序到可执行程序">图示转写：从源程序到可执行程序</a></li>
+      </ul>
+    </li>
+    <li><a href="#程序设计过程">程序设计过程</a></li>
+    <li><a href="#补充几个容易混淆的概念">补充：几个容易混淆的概念</a></li>
   </ul>
 </nav>
     </div>
