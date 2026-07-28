@@ -50,7 +50,7 @@ degrees:
     scale: GPA
     achieved: 4.1
     outOf: 4.3, all major-related courses achieve A+
-  ranking: "Rank **1/323** in Mechanical Engineering cohort. Rank **1st** in Qian Xuesen Pilot Class (Zhiyuan Honor Program). Rank **1st** in Comprehensive Evaluation."
+  ranking: "Rank **1/323** in Mechanical Engineering cohort. Rank **1st** in Qian Xuesen Pilot Class (Zhiyuan Honor Program). Rank **1st** in comprehensive evaluation."
   takenCourses: #(optional)
     # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
     showGrades: true
